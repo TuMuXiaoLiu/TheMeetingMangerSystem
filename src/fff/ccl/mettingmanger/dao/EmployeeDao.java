@@ -2,6 +2,7 @@ package fff.ccl.mettingmanger.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import fff.ccl.mettingmanger.pojo.Employee;
@@ -17,6 +18,11 @@ import fff.ccl.mettingmanger.util.ConnectionFactoryOracle;
  */
 public class EmployeeDao {
 
+	/**
+	 * @PS 插入用户
+	 * @pram Employee e用户对象
+	 * @return boolean 插入成功则返回true，否则返回false
+	 */
 	public boolean insert(Employee e) {
 		Connection connection = ConnectionFactoryOracle.getConnection();
 		PreparedStatement ps = null;
@@ -40,6 +46,12 @@ public class EmployeeDao {
 		return false;
 	}
 
+	/**
+	 * 
+	 * @PS TODO
+	 * @pram e 用户对象
+	 * @return boolean 更新成功则返回true，否则返回false
+	 */
 	public boolean update(Employee e) {
 		Connection connection = ConnectionFactoryOracle.getConnection();
 		PreparedStatement ps = null;
@@ -72,13 +84,65 @@ public class EmployeeDao {
 		return false;
 	}
 
+	/**
+	 * @PS 根据ID查找用户
+	 * @param employeeId
+	 * @return Employee 返回用户对象
+	 */
+
 	public Employee selectById(int employeeId) {
-		// TODO Auto-generated method stub
+		Connection connection = ConnectionFactoryOracle.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Employee employee = null;
+		try {
+			ps = connection.prepareStatement("select * from employee where id = ?");
+			ps.setInt(1, employeeId);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				employee = new Employee(rs.getInt("employeeId"), rs.getString("employeeName"), rs.getString("userName"),
+						rs.getString("userPassword"), rs.getLong("phone"), rs.getString("email"), rs.getInt("deptid"),
+						rs.getInt("roleId"), rs.getInt("employeeStatus"), rs.getString("remark"));
+			}
+			if (null != employee) {
+				return employee;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 
+	/**
+	 * @PS 根据ID和密码查找用户
+	 * @param employeeId
+	 * @return Employee 返回用户对象
+	 */
+
 	public Employee selectByIdPassword(int employeeId, String userpassword) {
-		// TODO Auto-generated method stub
+		Connection connection = ConnectionFactoryOracle.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Employee employee = null;
+		try {
+			ps = connection.prepareStatement("select * from employee where id = ? and userpassword = ?");
+			ps.setInt(1, employeeId);
+			ps.setString(2, userpassword);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				employee = new Employee(rs.getInt("employeeId"), rs.getString("employeeName"), rs.getString("userName"),
+						rs.getString("userPassword"), rs.getLong("phone"), rs.getString("email"), rs.getInt("deptid"),
+						rs.getInt("roleId"), rs.getInt("employeeStatus"), rs.getString("remark"));
+			}
+			if (null != employee) {
+				return employee;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
