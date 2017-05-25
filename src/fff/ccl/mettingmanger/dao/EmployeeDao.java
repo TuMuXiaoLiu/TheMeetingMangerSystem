@@ -49,12 +49,12 @@ public class EmployeeDao {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		throw new InsertException("注册失败，请稍后重试。");
+		throw new InsertException("注册信息有误！");
 	}
 
 	/**
 	 * 
-	 * @PS TODO
+	 * @PS 更新用户信息 其中需要判断更新的是密码或者邮箱等
 	 * @param e
 	 *            用户对象
 	 * @param string
@@ -66,10 +66,10 @@ public class EmployeeDao {
 		Connection connection = ConnectionFactoryMysql.getConnection();
 		PreparedStatement ps = null;
 		try {
-			
+
 			/*
-			 * Employee employee = selectEmployeeById(e.getEmployeeId());
-			 * // 判断修改的是否是密码
+			 * Employee employee = selectEmployeeById(e.getEmployeeId()); //
+			 * 判断修改的是否是密码
 			 * if(e.getUserPassword().equals(employee.getUserPassword())) {
 			 * 
 			 * }

@@ -9,15 +9,29 @@ package fff.ccl.mettingmanger.pojo;
  */
 
 public class Employee {
-
+	/**
+	 * 员工Id
+	 */
 	private int employeeId;
 	/**
 	 * 员工真实姓名
 	 */
 	private String employeeName;
+	/**
+	 * 员工昵称
+	 */
 	private String userName;
+	/**
+	 * 员工密码
+	 */
 	private String userPassword;
+	/**
+	 * 员工手机号
+	 */
 	private long phone;
+	/**
+	 * 员工邮箱
+	 */
 	private String email;
 	/**
 	 * 员工所属部门

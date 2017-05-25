@@ -6,22 +6,26 @@ import java.sql.SQLException;
 
 /**
  * @author ChulinCao E-mail: caochunlin@chinasofti.com
- * @date 2016��12��21�� ����4:53:18
- * @version 1.7
+ * @date 2017年5月23日 下午12:21:18
+ * @version 1.8
+ * @since
  * @parameter
+ * @PS 用于获取数据库(MySQL数据库)连接
  */
-public class ConnectionMysqlFactory {
+public class ConnectionFactoryMysql {
 	static Connection connection;
 
-	// ��ȡ���ӵľ�̬����
+	// 获取数据库连接对象
 	public static Connection getConnection() {
 		try {
-			// ��ȡSPI��DriveClass
+			// 获取SPI中DriveClass
 			Class.forName("com.mysql.jdbc.Driver");
-			// ���ӵ����ݿ⣬���������ݿ����Ӷ���
-//			connection = DriverManager.getConnection("jdbc:mysql:@localhost:3306:test", "ccl", "ccl");
-			connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "root", "ccl");
-			System.out.println("���ӳɹ�");
+			// 获取数据库连接对象
+			// connection =
+			// DriverManager.getConnection("jdbc:mysql:@localhost:3306:test",
+			// "ccl", "ccl");
+			connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "root", "root");
+			System.out.println("连接成功");
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -31,8 +35,12 @@ public class ConnectionMysqlFactory {
 		return connection;
 	}
 
-	// �ر����Ӷ���
-	public static void closeConnection() {
+	/**
+	 * @PS 关闭数据库连接对象
+	 * @pram Connection 对象
+	 * @return void
+	 */
+	public static void closeConnection(Connection connection) {
 		if (null != connection) {
 			try {
 				connection.close();
@@ -41,11 +49,6 @@ public class ConnectionMysqlFactory {
 			}
 		}
 
-	}
-
-	// ���������Ƿ�ɹ�
-	public static void main(String[] args) {
-		Connection connection = ConnFactory.getConnection();
 	}
 
 }
