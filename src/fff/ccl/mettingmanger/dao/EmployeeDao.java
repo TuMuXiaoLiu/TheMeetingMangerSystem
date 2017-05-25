@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import fff.ccl.mettingmanger.excetion.LoginException;
+import fff.ccl.mettingmanger.excetion.InsertException;
+import fff.ccl.mettingmanger.excetion.UpdateException;
 import fff.ccl.mettingmanger.pojo.Employee;
-import fff.ccl.mettingmanger.util.ConnectionFactoryOracle;
+import fff.ccl.mettingmanger.util.ConnectionFactoryMysql;
 
 /**
  * @author caochunlin E-mail: caochunlin@chinasofti.com
@@ -22,9 +25,10 @@ public class EmployeeDao {
 	 * @PS 插入用户
 	 * @pram Employee e用户对象
 	 * @return boolean 插入成功则返回true，否则返回false
+	 * @throws InsertException
 	 */
-	public boolean insert(Employee e) {
-		Connection connection = ConnectionFactoryOracle.getConnection();
+	public boolean insertEmployee(Employee e) throws InsertException {
+		Connection connection = ConnectionFactoryMysql.getConnection();
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement("insert into employee values(?,?,?,?,?,?,?,?,?,?)");
@@ -38,26 +42,33 @@ public class EmployeeDao {
 			ps.setInt(8, e.getRoleId());
 			ps.setInt(9, e.getEmployeeStatus());
 			ps.setString(10, e.getRemark());
-			ps.execute();
-			return true;
+			int i = ps.executeUpdate();
+			if (i != 0) {
+				return true;
+			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		return false;
+		throw new InsertException("注册失败，请稍后重试。");
 	}
 
 	/**
 	 * 
 	 * @PS TODO
-	 * @pram e 用户对象
+	 * @param e
+	 *            用户对象
+	 * @param string
+	 *            用户修改的字段信息
 	 * @return boolean 更新成功则返回true，否则返回false
+	 * @throws UpdateException
 	 */
-	public boolean update(Employee e) {
-		Connection connection = ConnectionFactoryOracle.getConnection();
+	public boolean updateEmployee(Employee e, String string) throws UpdateException {
+		Connection connection = ConnectionFactoryMysql.getConnection();
 		PreparedStatement ps = null;
 		try {
-			Employee employee = selectById(e.getEmployeeId());
+			
 			/*
+			 * Employee employee = selectEmployeeById(e.getEmployeeId());
 			 * // 判断修改的是否是密码
 			 * if(e.getUserPassword().equals(employee.getUserPassword())) {
 			 * 
@@ -76,22 +87,25 @@ public class EmployeeDao {
 			ps.setInt(7, e.getRoleId());
 			ps.setInt(8, e.getEmployeeStatus());
 			ps.setString(9, e.getRemark());
-			ps.execute();
-			return true;
+			int i = ps.executeUpdate();
+			if (i != 0) {
+				return true;
+			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		return false;
+		throw new UpdateException(string + "修改失败");
 	}
 
 	/**
 	 * @PS 根据ID查找用户
 	 * @param employeeId
 	 * @return Employee 返回用户对象
+	 * @throws LoginException
 	 */
 
-	public Employee selectById(int employeeId) {
-		Connection connection = ConnectionFactoryOracle.getConnection();
+	public Employee selectEmployeeById(int employeeId) throws LoginException {
+		Connection connection = ConnectionFactoryMysql.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Employee employee = null;
@@ -107,22 +121,21 @@ public class EmployeeDao {
 			if (null != employee) {
 				return employee;
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		return null;
+		throw new LoginException("账号或者密码错误！");
 	}
 
 	/**
 	 * @PS 根据ID和密码查找用户
 	 * @param employeeId
 	 * @return Employee 返回用户对象
+	 * @throws LoginException
 	 */
 
-	public Employee selectByIdPassword(int employeeId, String userpassword) {
-		Connection connection = ConnectionFactoryOracle.getConnection();
+	public Employee selectEmployeeByIdPassword(int employeeId, String userpassword) throws LoginException {
+		Connection connection = ConnectionFactoryMysql.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Employee employee = null;
@@ -139,11 +152,10 @@ public class EmployeeDao {
 			if (null != employee) {
 				return employee;
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		throw new LoginException("账号或者密码错误！");
 	}
 
 }
