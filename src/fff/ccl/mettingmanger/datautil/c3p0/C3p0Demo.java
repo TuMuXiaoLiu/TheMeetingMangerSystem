@@ -1,6 +1,5 @@
 package fff.ccl.mettingmanger.datautil.c3p0;
 
-import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
