@@ -1,4 +1,4 @@
-package fff.ccl.mettingmanger.util;
+package fff.ccl.mettingmanger.datautil.conn;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,21 +6,25 @@ import java.sql.SQLException;
 
 /**
  * @author ChulinCao E-mail: caochunlin@chinasofti.com
- * @date 17.5.24
+ * @date 2017年5月23日 下午12:21:18
  * @version 1.8
- * @parameter 用于获取数据库(Oracle数据库)连接
+ * @since
+ * @parameter
+ * @PS 用于获取数据库(MySQL数据库)连接
  */
-public class ConnectionFactoryOracle {
+public class ConnectionFactoryMysql {
 	static Connection connection;
 
 	// 获取数据库连接对象
 	public static Connection getConnection() {
 		try {
 			// 获取SPI中DriveClass
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Class.forName("com.mysql.jdbc.Driver");
 			// 获取数据库连接对象
-			connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ccl", "ccl");
-
+			// connection =
+			// DriverManager.getConnection("jdbc:mysql:@localhost:3306:test",
+			// "ccl", "ccl");
+			connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "root", "root");
 			System.out.println("连接成功");
 
 		} catch (ClassNotFoundException e) {
@@ -32,7 +36,6 @@ public class ConnectionFactoryOracle {
 	}
 
 	/**
-	 * 
 	 * @PS 关闭数据库连接对象
 	 * @pram Connection 对象
 	 * @return void

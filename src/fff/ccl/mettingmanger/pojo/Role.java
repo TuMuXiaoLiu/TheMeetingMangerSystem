@@ -16,7 +16,7 @@ public class Role {
 	/**
 	 * 角色ID 1代表管理员 2代表普通员工
 	 */
-	private int roleID;
+	private int roleId;
 	/**
 	 * 角色名字 管理员 普通员工
 	 */
@@ -26,12 +26,12 @@ public class Role {
 	 */
 	private String remark;
 
-	public int getRoleID() {
-		return roleID;
+	public int getRoleId() {
+		return roleId;
 	}
 
-	public void setRoleID(int roleID) {
-		this.roleID = roleID;
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
 
 	public String getRoleName() {
@@ -54,9 +54,9 @@ public class Role {
 		super();
 	}
 
-	public Role(int roleID, String roleName, String remark) {
+	public Role(int roleId, String roleName, String remark) {
 		super();
-		this.roleID = roleID;
+		this.roleId = roleId;
 		this.roleName = roleName;
 		this.remark = remark;
 	}
@@ -66,7 +66,7 @@ public class Role {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((remark == null) ? 0 : remark.hashCode());
-		result = prime * result + roleID;
+		result = prime * result + roleId;
 		result = prime * result + ((roleName == null) ? 0 : roleName.hashCode());
 		return result;
 	}
@@ -85,7 +85,7 @@ public class Role {
 				return false;
 		} else if (!remark.equals(other.remark))
 			return false;
-		if (roleID != other.roleID)
+		if (roleId != other.roleId)
 			return false;
 		if (roleName == null) {
 			if (other.roleName != null)
@@ -97,7 +97,7 @@ public class Role {
 
 	@Override
 	public String toString() {
-		return "Role [roleID=" + roleID + ", roleName=" + roleName + ", remark=" + remark + "]";
+		return "Role [roleId=" + roleId + ", roleName=" + roleName + ", remark=" + remark + "]";
 	}
 
 }
