@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import fff.ccl.mettingmanger.excetion.LoginException;
+import fff.ccl.mettingmanger.datautil.conn.ConnectionFactoryMysql;
 import fff.ccl.mettingmanger.excetion.InsertException;
 import fff.ccl.mettingmanger.excetion.UpdateException;
 import fff.ccl.mettingmanger.pojo.Employee;
-import fff.ccl.mettingmanger.util.ConnectionFactoryMysql;
 
 /**
  * @author caochunlin E-mail: caochunlin@chinasofti.com

@@ -12,7 +12,7 @@ public class MeetingRoom {
 	/**
 	 * 会议室ID
 	 */
-	private int rootId;
+	private int roomId;
 	/**
 	 * 会议室门牌号
 	 */
@@ -34,12 +34,12 @@ public class MeetingRoom {
 	 */
 	private String description;
 
-	public int getRootId() {
-		return rootId;
+	public int getRoomId() {
+		return roomId;
 	}
 
-	public void setRootId(int rootId) {
-		this.rootId = rootId;
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
 	}
 
 	public String getRoomCode() {
@@ -85,10 +85,10 @@ public class MeetingRoom {
 	public MeetingRoom() {
 	}
 
-	public MeetingRoom(int rootId, String roomCode, String roomName, int roomCapacity, int roomStatus,
+	public MeetingRoom(int roomId, String roomCode, String roomName, int roomCapacity, int roomStatus,
 			String description) {
 		super();
-		this.rootId = rootId;
+		this.roomId = roomId;
 		this.roomCode = roomCode;
 		this.roomName = roomName;
 		this.roomCapacity = roomCapacity;
@@ -105,7 +105,7 @@ public class MeetingRoom {
 		result = prime * result + ((roomCode == null) ? 0 : roomCode.hashCode());
 		result = prime * result + ((roomName == null) ? 0 : roomName.hashCode());
 		result = prime * result + roomStatus;
-		result = prime * result + rootId;
+		result = prime * result + roomId;
 		return result;
 	}
 
@@ -137,14 +137,14 @@ public class MeetingRoom {
 			return false;
 		if (roomStatus != other.roomStatus)
 			return false;
-		if (rootId != other.rootId)
+		if (roomId != other.roomId)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "MeetingRoom [rootId=" + rootId + ", roomCode=" + roomCode + ", roomName=" + roomName + ", roomCapacity="
+		return "MeetingRoom [roomId=" + roomId + ", roomCode=" + roomCode + ", roomName=" + roomName + ", roomCapacity="
 				+ roomCapacity + ", roomStatus=" + roomStatus + ", description=" + description + "]";
 	}
 
